@@ -16,6 +16,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# Security
+
 ALLOWED_HOSTS = []
 
 
@@ -28,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +64,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'vragenvuur.wsgi.application'
 
 
-# Password validation
+# Authentication
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -78,6 +81,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'app.User'
 
 
 # Internationalization
@@ -99,7 +104,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+# Local settings
+
 try:
-    from local_settings import *
+    from vragenvuur.local_settings import *
 except:
     pass

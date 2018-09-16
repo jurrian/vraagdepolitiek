@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <table border="1">
+  {% for question in question_list %}
+    <tr>
+      <td>
+        <p><small>{{ question.user.get_full_name }}</small></p>
+        <p>|
+          {% for theme in question.themes.all %}
+            {{ theme }} |
+          {% endfor %}
+        </p>
+        <p><strong>{{ question.summary }}</strong></p>
+        <p>{{ question.full_text }}</p>
+        <p>{{ question.user_support.count }}x geliked</p>
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+{% endblock %}
