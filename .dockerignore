@@ -1,0 +1,5 @@
+Dockerfile*
+docker-compose*
+**/local_settings.py
+**/__pycache__
+**/*.pyc
