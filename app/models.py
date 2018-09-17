@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from app.managers import UserManager
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -31,6 +32,14 @@ class Question(Publication):
     answers = models.ManyToManyField('Answer', blank=True)
     themes = models.ManyToManyField('Theme', blank=True)
     user_support = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='support', blank=True)
+
+    def get_absolute_url(self):
+        return reverse('question-detail', kwargs={'pk': self.pk})
+
+    def is_user_deletable(self):
+        if self.answers.count() > 0:
+            return False
+        return True
 
 
 class Answer(Publication):

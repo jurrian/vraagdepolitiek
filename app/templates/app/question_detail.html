@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
-  <a href="{% url 'question-create' %}">Nieuwe vraag</a>
   <table border="1">
-  {% for question in question_list %}
     <tr>
       <td>
         <a style="float: right; padding: 10px; border: 1px solid black" href="{% url 'question-upvote' pk=question.pk %}">^</a>
@@ -13,11 +11,23 @@
             {{ theme }} |
           {% endfor %}
         </p>
-        <p><strong><a href="{% url 'question-detail' pk=question.pk %}">{{ question.summary }}</a></strong></p>
+        <p><strong>{{ question.summary }}</strong></p>
         <p>{{ question.full_text }}</p>
         <p>{{ question.user_support.count }}x geliked</p>
       </td>
     </tr>
-  {% endfor %}
+    <tr>
+      <table border="1">
+        <tr>
+          {% for answer in question.answers.all %}
+            <td>
+              <p><small>{{ answer.user.get_full_name }}</small></p>
+              <p><strong>{{ answer.summary }}</strong></p>
+              <p>{{ answer.full_text }}</p>
+            </td>
+          {% endfor %}
+        </tr>
+      </table>
+    </tr>
   </table>
 {% endblock %}
