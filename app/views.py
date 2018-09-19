@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from app.models import Question
+from app.models.publication import Question
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest

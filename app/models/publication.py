@@ -1,22 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from app.managers import UserManager
+from django.db import models
 from django.urls import reverse
 
 
-class User(AbstractUser):
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']  # removes email from REQUIRED_FIELDS
-
-    email = models.EmailField(_('email address'), unique=True)  # changes email to unique and blank to false
-
-    objects = UserManager()
-
-
 class Publication(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     summary = models.CharField(max_length=260)  # 280
     full_text = models.TextField()
     publication_datetime = models.DateTimeField(auto_now=True)
@@ -29,7 +17,7 @@ class Publication(models.Model):
 
 
 class Question(Publication):
-    answers = models.ManyToManyField('Answer', blank=True)
+    answers = models.ManyToManyField('Answer', blank=True, through='QuestionAnswer')
     themes = models.ManyToManyField('Theme', blank=True)
     user_support = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='support', blank=True)
 
@@ -44,6 +32,11 @@ class Question(Publication):
 
 class Answer(Publication):
     pass
+
+
+class QuestionAnswer(models.Model):
+    question = models.ForeignKey('Question', on_delete=models.PROTECT)
+    answer = models.ForeignKey('Answer', on_delete=models.CASCADE)
 
 
 class Theme(models.Model):
