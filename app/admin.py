@@ -40,8 +40,13 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
 
 
+@admin.register(Representative)
+class RepresentativeAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'twitter', 'email', 'get_organization')
+    readonly_fields = ('image_tag',)
+
+
 admin.site.register(Answer)
 admin.site.register(QuestionAnswer)
 admin.site.register(Theme)
-admin.site.register(Representative)
 admin.site.register(Organization)
