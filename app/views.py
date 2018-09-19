@@ -5,6 +5,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest
 from django.views import View
 from django.views.generic.detail import SingleObjectMixin
+from rest_framework import viewsets
+from app.serializers import QuestionSerializer
 
 
 class QuestionList(ListView):
@@ -52,3 +54,8 @@ class QuestionUpvote(SingleObjectMixin, View):
             return HttpResponseBadRequest('Invalid user id: {}'.format(self.request.user))
 
         return HttpResponse('Success')
+
+
+class QuestionViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
