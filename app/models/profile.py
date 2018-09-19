@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.safestring import mark_safe
 
 from app.managers import UserManager
 
@@ -11,6 +12,11 @@ class Profile(models.Model):
 
     class Meta:
         abstract = True
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width=100 height=100 />' % self.picture)
+    image_tag.short_description = 'Image'
+    image_tag.allow_tags = True
 
 
 class User(AbstractUser, Profile):
@@ -43,6 +49,9 @@ class Representative(Profile):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
+
+    def get_organization(self):
+        return ", ".join([x.name for x in self.organization.all()])
 
     def __str__(self):
         return self.get_full_name()
