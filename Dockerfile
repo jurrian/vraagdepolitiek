@@ -9,8 +9,10 @@ RUN apk add --no-cache --virtual .build-deps \
     libc-dev \
     libffi-dev \
     mariadb-dev \
+    && apk add \
+    mariadb-client-libs \
+    jpeg-dev \
     && pip install -r /opt/vragenvuur/requirements.txt \
-    && apk add mariadb-client-libs \
     && apk del .build-deps
 
 WORKDIR /opt/vragenvuur
