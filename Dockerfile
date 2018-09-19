@@ -19,3 +19,4 @@ COPY vragenvuur/local_settings.docker.py vragenvuur/local_settings.py
 
 CMD python manage.py runserver 0.0.0.0:8000
 EXPOSE 8000
+ENV PYTHONUNBUFFERED=1
