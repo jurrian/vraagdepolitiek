@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from app.views import QuestionList, QuestionDetail, QuestionCreate, QuestionUpdate, QuestionDelete, QuestionUpvote
-from django.urls import path
 
 urlpatterns = [
     path('q/', QuestionList.as_view(), name='questions'),
