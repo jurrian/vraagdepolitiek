@@ -1,6 +1,6 @@
 local_settings.py
 .idea
-static
+/static
 frontend/node_modules
 */__pycache__
 **/*.pyc
