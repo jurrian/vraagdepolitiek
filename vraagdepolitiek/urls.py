@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import include, path
+from django.views.generic import TemplateView
 from backend.views import QuestionList, QuestionDetail, QuestionCreate, QuestionUpdate, QuestionDelete, QuestionUpvote
 
 urlpatterns = [
@@ -23,5 +25,6 @@ urlpatterns = [
     path('q/edit/<int:pk>/', QuestionUpdate.as_view(), name='question-update'),
     path('q/delete/<int:pk>/', QuestionDelete.as_view(), name='question-delete'),
     path('q/upvote/<int:pk>/', QuestionUpvote.as_view(), name='question-upvote'),
+    path('', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
 ]
