@@ -6,9 +6,9 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vragenvuur',
-        'USER': 'vragenvuur',
-        'PASSWORD': 'vragenvuur',
+        'NAME': 'vraagdepolitiek',
+        'USER': 'vraagdepolitiek',
+        'PASSWORD': 'vraagdepolitiek',
         'HOST': 'db',
         'PORT': '3306',
     }

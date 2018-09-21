@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0001_initial'),
+        ('backend', '0001_initial'),
     ]
 
     operations = [
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('summary', models.CharField(max_length=260)),
                 ('full_text', models.TextField()),
                 ('publication_datetime', models.DateTimeField(auto_now=True)),
-                ('answers', models.ManyToManyField(to='app.Answer')),
+                ('answers', models.ManyToManyField(to='backend.Answer')),
             ],
             options={
                 'abstract': False,
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='question',
             name='themes',
-            field=models.ManyToManyField(to='app.Theme'),
+            field=models.ManyToManyField(to='backend.Theme'),
         ),
         migrations.AddField(
             model_name='question',

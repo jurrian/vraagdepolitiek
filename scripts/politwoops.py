@@ -88,10 +88,10 @@ for g in groups:
 
 
 rep_fixture = list()
-rep_fixture_template = {'model': 'app.representative', 'pk': None, 'fields': {}}
+rep_fixture_template = {'model': 'backend.representative', 'pk': None, 'fields': {}}
 
 org_fixture = list()
-org_fixture_template = {'model': 'app.organization', 'pk': None, 'fields': {}}
+org_fixture_template = {'model': 'backend.organization', 'pk': None, 'fields': {}}
 
 # group_politicians = copy.copy(new_groups)
 # for group, twitter_handles in new_groups.items():
@@ -147,6 +147,6 @@ save('fixtures.json', org_fixture + rep_fixture)
 
 print('Done')
 
-# [{"model": "app.representative", "pk": 1, "fields": {"picture": "", "gender": 0,
+# [{"model": "backend.representative", "pk": 1, "fields": {"picture": "", "gender": 0,
 # "birth_date": "2018-09-18", "user": null, "first_name": "Jurrian", "last_name": "Tromp",
 # "email": "jurriantromp@gmail.com", "twitter": "jurrian", "organization": []}}]

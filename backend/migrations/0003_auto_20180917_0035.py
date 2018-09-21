@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0002_initial_app_models'),
+        ('backend', '0002_initial_app_models'),
     ]
 
     operations = [
@@ -20,12 +20,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='question',
             name='answers',
-            field=models.ManyToManyField(blank=True, to='app.Answer'),
+            field=models.ManyToManyField(blank=True, to='backend.Answer'),
         ),
         migrations.AlterField(
             model_name='question',
             name='themes',
-            field=models.ManyToManyField(blank=True, to='app.Theme'),
+            field=models.ManyToManyField(blank=True, to='backend.Theme'),
         ),
         migrations.AlterField(
             model_name='question',

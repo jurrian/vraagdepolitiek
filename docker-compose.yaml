@@ -18,9 +18,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD:
       MYSQL_RANDOM_ROOT_PASSWORD: "true"
-      MYSQL_DATABASE: vragenvuur
-      MYSQL_USER: vragenvuur
-      MYSQL_PASSWORD: vragenvuur
+      MYSQL_DATABASE: vraagdepolitiek
+      MYSQL_USER: vraagdepolitiek
+      MYSQL_PASSWORD: vraagdepolitiek
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:

@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.safestring import mark_safe
 
-from app.managers import UserManager
+from backend.managers import UserManager
 
 
 class Profile(models.Model):

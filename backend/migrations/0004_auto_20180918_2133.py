@@ -8,7 +8,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0003_auto_20180917_0035'),
+        ('backend', '0003_auto_20180917_0035'),
     ]
 
     operations = [
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=150)),
                 ('email', models.EmailField(blank=True, max_length=254)),
                 ('twitter', models.CharField(blank=True, max_length=16)),
-                ('organization', models.ManyToManyField(blank=True, to='app.Organization')),
+                ('organization', models.ManyToManyField(blank=True, to='backend.Organization')),
             ],
             options={
                 'abstract': False,

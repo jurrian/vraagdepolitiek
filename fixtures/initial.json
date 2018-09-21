@@ -27,7 +27,7 @@
     "model": "contenttypes.contenttype",
     "pk": 4,
     "fields": {
-      "app_label": "app",
+      "app_label": "backend",
       "model": "user"
     }
   },
@@ -51,7 +51,7 @@
     "model": "contenttypes.contenttype",
     "pk": 7,
     "fields": {
-      "app_label": "app",
+      "app_label": "backend",
       "model": "answer"
     }
   },
@@ -59,7 +59,7 @@
     "model": "contenttypes.contenttype",
     "pk": 8,
     "fields": {
-      "app_label": "app",
+      "app_label": "backend",
       "model": "question"
     }
   },
@@ -67,40 +67,40 @@
     "model": "contenttypes.contenttype",
     "pk": 9,
     "fields": {
-      "app_label": "app",
+      "app_label": "backend",
       "model": "theme"
     }
   },
   {
-    "model": "app.theme",
+    "model": "backend.theme",
     "pk": 1,
     "fields": {
       "name": "Mobiliteit"
     }
   },
   {
-    "model": "app.theme",
+    "model": "backend.theme",
     "pk": 2,
     "fields": {
       "name": "Werkgelegenheid"
     }
   },
   {
-    "model": "app.theme",
+    "model": "backend.theme",
     "pk": 3,
     "fields": {
       "name": "Financi\u00ebn"
     }
   },
   {
-    "model": "app.theme",
+    "model": "backend.theme",
     "pk": 4,
     "fields": {
       "name": "Gezondheidzorg"
     }
   },
   {
-    "model": "app.theme",
+    "model": "backend.theme",
     "pk": 5,
     "fields": {
       "name": "Veiligheid"
@@ -431,7 +431,7 @@
     }
   },
   {
-    "model": "app.user",
+    "model": "backend.user",
     "pk": 1,
     "fields": {
       "password": "",
@@ -449,7 +449,7 @@
     }
   },
   {
-    "model": "app.user",
+    "model": "backend.user",
     "pk": 3,
     "fields": {
       "password": "",
@@ -467,7 +467,7 @@
     }
   },
   {
-    "model": "app.user",
+    "model": "backend.user",
     "pk": 4,
     "fields": {
       "password": "",
@@ -485,7 +485,7 @@
     }
   },
   {
-    "model": "app.question",
+    "model": "backend.question",
     "pk": 1,
     "fields": {
       "user": 1,
@@ -506,7 +506,7 @@
     }
   },
   {
-    "model": "app.question",
+    "model": "backend.question",
     "pk": 2,
     "fields": {
       "user": 3,
@@ -526,7 +526,7 @@
     }
   },
   {
-    "model": "app.question",
+    "model": "backend.question",
     "pk": 3,
     "fields": {
       "user": 1,
