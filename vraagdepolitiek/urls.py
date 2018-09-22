@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
+from graphene_django.views import GraphQLView
 from backend.views import QuestionList, QuestionDetail, QuestionCreate, QuestionUpdate, QuestionDelete, QuestionUpvote
 
 urlpatterns = [
@@ -25,6 +26,9 @@ urlpatterns = [
     path('q/<int:pk>/edit/', QuestionUpdate.as_view(), name='question-update'),
     path('q/<int:pk>/delete/', QuestionDelete.as_view(), name='question-delete'),
     path('q/<int:pk>/upvote/', QuestionUpvote.as_view(), name='question-upvote'),
+
+    # API Graphql endpoint
+    re_path(r'^api/graphql', GraphQLView.as_view(graphiql=True)),
     path('admin/', admin.site.urls),
 
     # Route everything that doesn't match the other paths to frontend

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend',
     'frontend',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +129,13 @@ LOGGING = {
             'level': 'INFO',
         },
     },
+}
+
+
+# Graphene GraphQL settings
+
+GRAPHENE = {
+    'SCHEMA': 'backend.schema.schema'
 }
 
 
