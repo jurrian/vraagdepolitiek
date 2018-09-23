@@ -29,6 +29,8 @@ urlpatterns = [
 
     # API Graphql endpoint
     re_path(r'^api/graphql', GraphQLView.as_view(graphiql=True)),
+
+    # Admin backend
     path('admin/', admin.site.urls),
 
     # Route everything that doesn't match the other paths to frontend

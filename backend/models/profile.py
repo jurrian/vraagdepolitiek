@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.safestring import mark_safe
+from django.contrib.sites.models import Site
 
 from backend.managers import UserManager
 
@@ -23,7 +24,8 @@ class User(AbstractUser, Profile):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']  # removes email from REQUIRED_FIELDS
 
-    email = models.EmailField(unique=True)  # changes email to unique and blank to false
+    # changes email to unique and blank to false
+    email = models.EmailField(unique=True, help_text='Will be used for authentication.')
 
     objects = UserManager()
 
@@ -32,10 +34,11 @@ class Representative(Profile):
     user = models.OneToOneField('User', blank=True, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=150, blank=True)
-    organization = models.ManyToManyField('Organization', blank=True)
+    organization = models.ManyToManyField('Organization', blank=True, help_text='The legislative body or municipality '
+                                                                                'the Representative belongs to.')
     # role = models. through?
     email = models.EmailField(blank=True)
-    twitter = models.CharField(max_length=16, blank=True)
+    twitter = models.CharField(max_length=16, blank=True, help_text='Twitter handle without the @ in the beginning.')
 
     # themes coupled through assignments
 
@@ -58,6 +61,15 @@ class Representative(Profile):
 
 
 class Organization(models.Model):
+    site = models.ForeignKey(Site, default=2, on_delete=models.PROTECT,
+                             help_text='The website domain the organization is displayed on.')
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
+class Party(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):

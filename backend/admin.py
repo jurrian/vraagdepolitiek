@@ -31,7 +31,7 @@ class UserAdmin(DjangoUserAdmin):
 
 class AnswerInline(admin.TabularInline):
     model = QuestionAnswer
-    readonly_fields = ['answer']
+    readonly_fields = ['author']
     extra = 0
 
 
@@ -47,6 +47,5 @@ class RepresentativeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Answer)
-admin.site.register(QuestionAnswer)
 admin.site.register(Theme)
 admin.site.register(Organization)
