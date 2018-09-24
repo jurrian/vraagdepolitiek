@@ -101,8 +101,56 @@ class CreateQuestion(DjangoModelFormMutation):
         form_class = QuestionForm
 
 
+def login_required(func):
+    def wrapper(self, info, *args, **kwargs):
+        if not info.context.user.is_authenticated:
+            raise GraphQLError('No user logged in')
+        return func(self, info, *args, **kwargs)
+    return wrapper
+
+
+class QuestionUpvote(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+
+    ok = graphene.Boolean()
+
+    @login_required
+    def mutate(self, info, id):
+        try:
+            question = Question.objects.get(pk=id)
+            question.user_support.add(info.context.user.id)
+        except (TypeError, Question.DoesNotExist):
+            raise
+
+        if question.total_support_count == question.min_required_support:
+            # Do some action
+            pass
+
+        return QuestionUpvote(ok=True)
+
+
+class Login(graphene.Mutation):
+    class Arguments:
+        email = graphene.String()
+        password = graphene.String()
+
+    ok = graphene.Boolean()
+
+    def mutate(self, info, email, password):
+        from django.contrib.auth import authenticate, login
+        user = authenticate(info.context, email=email, password=password)
+        if user is not None:
+            login(info.context, user)
+            return Login(ok=True)
+        else:
+            return Login(ok=False)
+
+
 class Mutations(graphene.ObjectType):
+    login = Login.Field()
     create_question = CreateQuestion.Field()
+    question_upvote = QuestionUpvote.Field()
 
 
 # noinspection PyTypeChecker

@@ -44,6 +44,10 @@ class Question(Publication):
     def total_support_count(self):
         return self.user_support_count + self.fb_support_count + self.twitter_support_count
 
+    @property
+    def min_required_support(self):
+        return 10
+
 
 class Answer(Publication):
     user = models.ForeignKey('Representative', null=True, on_delete=models.SET_NULL,
