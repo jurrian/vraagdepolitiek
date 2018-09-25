@@ -10,8 +10,8 @@ from backend.forms import QuestionForm, UserCreationForm
 from backend.models.profile import User, Representative, Organization, Party
 from backend.models.publication import Question, Answer, Theme
 
+
 class UserType(DjangoObjectType):
-    password = None
 
     class Meta:
         model = User
@@ -70,10 +70,14 @@ class SiteType(DjangoObjectType):
 class Query(graphene.ObjectType):
     users = graphene.List(UserType)
     current_user = graphene.Field(UserType)
-    user_questions = graphene.List(QuestionType)
 
     questions = graphene.List(QuestionType)
+    site_questions = graphene.List(QuestionType, site=graphene.ID())
     answers = graphene.List(AnswerType)
+    representatives = graphene.List(RepresentativeType)
+    organizations = graphene.List(OrganizationType)
+    parties = graphene.List(PartyType)
+    sites = graphene.List(SiteType, id=graphene.ID())
 
     def resolve_users(self, info):
         return User.objects.all()
@@ -81,18 +85,32 @@ class Query(graphene.ObjectType):
     def resolve_current_user(self, info):
         if not info.context.user.is_authenticated:
             raise GraphQLError('No user logged in')
-        return User.objects.get(pk=info.context.user.id)
 
-    def resolve_user_questions(self, info):
-        if not info.context.user.is_authenticated:
-            raise GraphQLError('No user logged in')
-        return Question.objects.filter(user=info.context.user)
+        return User.objects.get(pk=info.context.user.id)
 
     def resolve_questions(self, info):
         return Question.objects.all()
 
     def resolve_answers(self, info):
         return Answer.objects.all()
+
+    def resolve_representatives(self, info):
+        return Representative.objects.all()
+
+    def resolve_organizations(self, info):
+        return Organization.objects.all()
+
+    def resolve_parties(self, info):
+        return Party.objects.all()
+
+    def resolve_sites(self, info, id=None):
+        return Site.objects.all()
+
+    def resolve_site_questions(self, info, site=None):
+        if not site:
+            site = info.context.site
+
+        return Question.objects.filter(organization__site=site)
 
     class Meta:
         description = 'GraphQL query endpoint for vraagdepolitiek.nl and vraagdegemeente.nl.'

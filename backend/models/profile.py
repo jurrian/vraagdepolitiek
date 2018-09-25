@@ -8,7 +8,8 @@ from backend.managers import UserManager
 
 class Profile(models.Model):
     picture = models.ImageField(blank=True, null=True, max_length=200, upload_to='')
-    gender = models.SmallIntegerField(blank=True, null=True, choices=((0, 'Man'), (1, 'Vrouw')))
+    gender = models.SmallIntegerField(blank=True, null=True, choices=((0, 'Man'), (1, 'Vrouw')),
+                                      help_text='0=Male 1=Female.')
     birth_date = models.DateField(blank=True, null=True)
 
     class Meta:
@@ -25,7 +26,9 @@ class User(AbstractUser, Profile):
     REQUIRED_FIELDS = ['username']  # removes email from REQUIRED_FIELDS
 
     # changes email to unique and blank to false
-    email = models.EmailField(unique=True, help_text='Will be used for authentication.')
+    email = models.EmailField(unique=True, help_text='Required. Used for authentication.')
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=150)
 
     objects = UserManager()
 

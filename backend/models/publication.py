@@ -16,8 +16,8 @@ class Publication(models.Model):
 
 
 class Question(Publication):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL,
-                             help_text='The user that posted the question.')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='question_set',
+                             on_delete=models.SET_NULL, help_text='The user that posted the question.')
     organization = models.ForeignKey('Organization', on_delete=models.PROTECT,
                                      help_text='The legislative body or municipality in which this question is posted.')
     requests = models.TextField(blank=True, help_text='What the user asks from the Representatives.')
