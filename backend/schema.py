@@ -1,12 +1,14 @@
 import graphene
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.sites.models import Site
 from graphene_django import DjangoObjectType
 from graphene_django.forms.mutation import DjangoModelFormMutation
 from graphql import GraphQLError
 
+from backend.forms import QuestionForm, UserCreationForm
 from backend.models.profile import User, Representative, Organization, Party
 from backend.models.publication import Question, Answer, Theme
-from django.contrib.sites.models import Site
-from backend.forms import QuestionForm
 
 class UserType(DjangoObjectType):
     password = None
@@ -99,6 +101,7 @@ class Query(graphene.ObjectType):
 class CreateQuestion(DjangoModelFormMutation):
     class Meta:
         form_class = QuestionForm
+        exclude_fields = ('id',)
 
 
 def login_required(func):
@@ -106,6 +109,7 @@ def login_required(func):
         if not info.context.user.is_authenticated:
             raise GraphQLError('No user logged in')
         return func(self, info, *args, **kwargs)
+
     return wrapper
 
 
@@ -138,7 +142,6 @@ class Login(graphene.Mutation):
     ok = graphene.Boolean()
 
     def mutate(self, info, email, password):
-        from django.contrib.auth import authenticate, login
         user = authenticate(info.context, email=email, password=password)
         if user is not None:
             login(info.context, user)
@@ -147,8 +150,37 @@ class Login(graphene.Mutation):
             return Login(ok=False)
 
 
+class CreateUser(DjangoModelFormMutation):
+    class Meta:
+        form_class = UserCreationForm
+        exclude_fields = ('id',)
+
+    @classmethod
+    def perform_mutate(cls, form, info):
+        """Added request to save method."""
+        obj = form.save(request=info.context)
+        kwargs = {cls._meta.return_field_name: obj}
+        return cls(errors=[], **kwargs)
+
+
+class PasswordReset(DjangoModelFormMutation):
+    class Meta:
+        form_class = PasswordResetForm
+        model = User
+
+    @classmethod
+    def perform_mutate(cls, form, info):
+        """Added request to save method."""
+        obj = form.save(request=info.context)
+        kwargs = {cls._meta.return_field_name: obj}
+        return cls(errors=[], **kwargs)
+
+
 class Mutations(graphene.ObjectType):
     login = Login.Field()
+    create_user = CreateUser.Field()
+    password_reset = PasswordReset.Field()
+
     create_question = CreateQuestion.Field()
     question_upvote = QuestionUpvote.Field()
 

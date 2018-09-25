@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
-from backend.views import QuestionList, QuestionDetail, QuestionCreate, QuestionUpdate, QuestionDelete, QuestionUpvote
+from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetCompleteView
+from backend.views import QuestionList, QuestionDetail, QuestionCreate, QuestionUpdate, QuestionDelete, QuestionUpvote, UserCreationConfirmView
 
 urlpatterns = [
     path('q/', QuestionList.as_view(), name='questions'),
@@ -32,6 +33,10 @@ urlpatterns = [
 
     # Admin backend
     path('admin/', admin.site.urls),
+    path('accounts/reset/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('accounts/reset/done/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('accounts/create/<uidb64>/<token>/', UserCreationConfirmView.as_view(), name='user_creation_confirm'),
+    path('accounts/create/done/', PasswordResetCompleteView.as_view(), name='user_creation_complete'),
 
     # Route everything that doesn't match the other paths to frontend
     re_path(r'^', TemplateView.as_view(template_name='index.html')),

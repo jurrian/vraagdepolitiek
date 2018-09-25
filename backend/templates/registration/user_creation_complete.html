@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; {% trans 'User confirmed' %}
+</div>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content_title %}<h1>{{ title }}</h1>{% endblock %}
+
+{% block content %}
+
+{% if validlink %}
+
+<p>{% trans "Your account has been confirmed. Click here to continue." %}</p>
+
+{% else %}
+
+<p>{% trans "The user confirmation link was invalid, possibly because it has already been used." %}</p>
+
+{% endif %}
+
+<p><a href="/">{% trans 'Continue' %}</a></p>
+
+{% endblock %}
