@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
@@ -11,12 +12,54 @@ from django.utils.translation import gettext_lazy as _
 
 from backend.models.profile import User
 from backend.models.publication import Question
+from django.conf import settings
+
+UserModel = get_user_model()
+
+
+def send_mail(subject_template_name, email_template_name,
+              context, from_email, to_email, html_email_template_name=None):
+    """
+    Send a django.core.mail.EmailMultiAlternatives to `to_email`.
+    """
+    subject = loader.render_to_string(subject_template_name, context)
+    # Email subject *must not* contain newlines
+    subject = ''.join(subject.splitlines())
+    body = loader.render_to_string(email_template_name, context)
+
+    # Todo also test for tuples etc.
+    if not type(to_email) == list:
+        to_email = [to_email]
+
+    email_message = EmailMultiAlternatives(subject, body, from_email, to_email)
+    if html_email_template_name is not None:
+        html_email = loader.render_to_string(html_email_template_name, context)
+        email_message.attach_alternative(html_email, 'text/html')
+
+    email_message.send()
 
 
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ['summary', 'full_text', 'themes', 'organization']
+
+    def save(self, commit=True):
+        question = super().save(commit)
+        if question and not settings.DEBUG:
+            context = {
+                'question': self.instance,
+            }
+            moderators = UserModel._default_manager_.filter(groups__name='Moderator')
+            if moderators:
+                send_mail(
+                    subject_template_name=None,
+                    email_template_name='backend/question_moderation_email.html',
+                    context=context,
+                    from_email=None,
+                    to_email=[moderator.email for moderator in moderators]
+                )
+        return question
 
 
 class UserCreationForm(DjangoUserCreationForm):
@@ -25,24 +68,8 @@ class UserCreationForm(DjangoUserCreationForm):
         fields = ['email', 'username', 'first_name', 'last_name', 'gender',
                   'birth_date', 'picture']
 
-    def send_mail(self, subject_template_name, email_template_name,
-                  context, from_email, to_email, html_email_template_name=None):
-        """
-        Send a django.core.mail.EmailMultiAlternatives to `to_email`.
-        """
-        subject = loader.render_to_string(subject_template_name, context)
-        # Email subject *must not* contain newlines
-        subject = ''.join(subject.splitlines())
-        body = loader.render_to_string(email_template_name, context)
-
-        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
-        if html_email_template_name is not None:
-            html_email = loader.render_to_string(html_email_template_name, context)
-            email_message.attach_alternative(html_email, 'text/html')
-
-        email_message.send()
-
-    def send_confirm_mail(self, user, email, domain_override=None,
+    @staticmethod
+    def send_confirm_mail(user, email, domain_override=None,
                           subject_template_name='registration/user_creation_subject.txt',
                           email_template_name='registration/user_creation_email.html',
                           use_https=False, token_generator=default_token_generator,
@@ -65,7 +92,7 @@ class UserCreationForm(DjangoUserCreationForm):
             'protocol': 'https' if use_https else 'http',
             **(extra_email_context or {}),
         }
-        self.send_mail(
+        send_mail(
             subject_template_name, email_template_name, context, from_email,
             email, html_email_template_name=html_email_template_name,
         )

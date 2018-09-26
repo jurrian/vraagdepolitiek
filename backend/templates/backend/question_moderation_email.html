@@ -1,0 +1,18 @@
+{% autoescape off %}
+Er is een vraag gesteld door {{ question.user.get_full_name }} in {{ question.organization.name }}:
+
+Date:
+{{ question.publication_datetime }}
+
+Summary:
+{{ question.summary }}
+
+Full Text:
+{{ question.full_text }}
+
+Requests:
+{{ question.requests }}
+
+Themes:
+{{ question.themes }}
+{% endautoescape %}
