@@ -53,7 +53,7 @@ ROOT_URLCONF = 'vraagdepolitiek.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['backend/templates'],  # Search in backend first to overwrite admin
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

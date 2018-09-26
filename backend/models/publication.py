@@ -16,6 +16,7 @@ class Publication(models.Model):
 
 
 class Question(Publication):
+    published = models.BooleanField(default=False, help_text='If the question has been published on the site.')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='question_set',
                              on_delete=models.SET_NULL, help_text='The user that posted the question.')
     organization = models.ForeignKey('Organization', on_delete=models.PROTECT,
@@ -27,6 +28,9 @@ class Question(Publication):
                                           help_text='The users that upvoted this question.')
     fb_support_count = models.PositiveSmallIntegerField(blank=True, default=0)
     twitter_support_count = models.PositiveSmallIntegerField(blank=True, default=0)
+
+    class Meta:
+        permissions = (("publish_question", "Can publish question"),)
 
     def get_absolute_url(self):
         return reverse('question-detail', kwargs={'pk': self.pk})
