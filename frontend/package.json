@@ -1,21 +1,19 @@
 {
-  "name": "vraagdepolitiek",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "apollo-boost": "^0.1.16",
+    "graphql": "^14.0.2",
+    "react": "^16.5.2",
+    "react-apollo": "^2.2.1",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5"
+  },
   "scripts": {
-    "dev": "webpack --mode development ./vraagdepolitiek/frontend/src/index.js --output ./vraagdepolitiek/frontend/static/frontend/main.js",
-    "build": "webpack --mode production ./vraagdepolitiek/frontend/src/index.js --output ./vraagdepolitiek/frontend/static/frontend/main.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jurrian/vraagdepolitiek.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jurrian/vraagdepolitiek/issues"
-  },
-  "homepage": "https://github.com/jurrian/vraagdepolitiek#readme"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
