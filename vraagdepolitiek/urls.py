@@ -19,6 +19,7 @@ from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
 from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetCompleteView
 from backend.views import QuestionList, QuestionDetail, QuestionCreate, QuestionUpdate, QuestionDelete, QuestionUpvote, UserCreationConfirmView
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('q/', QuestionList.as_view(), name='questions'),
@@ -29,7 +30,7 @@ urlpatterns = [
     path('q/<int:pk>/upvote/', QuestionUpvote.as_view(), name='question-upvote'),
 
     # API Graphql endpoint
-    re_path(r'^api/graphql', GraphQLView.as_view(graphiql=True)),
+    re_path(r'^api/graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
 
     # Admin backend
     path('admin/', admin.site.urls),

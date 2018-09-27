@@ -35,11 +35,13 @@ INSTALLED_APPS = [
     'backend',
     'frontend',
     'graphene_django',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -141,6 +143,24 @@ GRAPHENE = {
     'SCHEMA': 'backend.schema.schema'
 }
 
+#CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:3000',
+    '10.0.1.123:3000',
+    '10.0.1.123:8000',
+    'localhost:8000',
+)
+
+# Todo!
+CSRF_TRUSTED_ORIGINS = (
+    '127.0.0.1:3000',
+    '10.0.1.123:3000',
+    '10.0.1.123:8000',
+    'localhost:8000',
+)
 
 # Local settings
 
