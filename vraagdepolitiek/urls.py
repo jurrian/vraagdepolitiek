@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.views.static import serve
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 from graphene_django.views import GraphQLView
@@ -22,12 +23,12 @@ from backend.views import QuestionList, QuestionDetail, QuestionCreate, Question
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    path('q/', QuestionList.as_view(), name='questions'),
-    path('q/<int:pk>/', QuestionDetail.as_view(), name='question-detail'),
-    path('q/create/', QuestionCreate.as_view(), name='question-create'),
-    path('q/<int:pk>/edit/', QuestionUpdate.as_view(), name='question-update'),
-    path('q/<int:pk>/delete/', QuestionDelete.as_view(), name='question-delete'),
-    path('q/<int:pk>/upvote/', QuestionUpvote.as_view(), name='question-upvote'),
+    path('api/q/', QuestionList.as_view(), name='questions'),
+    path('api/q/<int:pk>/', QuestionDetail.as_view(), name='question-detail'),
+    path('api/q/create/', QuestionCreate.as_view(), name='question-create'),
+    path('api/q/<int:pk>/edit/', QuestionUpdate.as_view(), name='question-update'),
+    path('api/q/<int:pk>/delete/', QuestionDelete.as_view(), name='question-delete'),
+    path('api/q/<int:pk>/upvote/', QuestionUpvote.as_view(), name='question-upvote'),
 
     # API Graphql endpoint
     re_path(r'^api/graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
@@ -40,5 +41,6 @@ urlpatterns = [
     path('accounts/create/done/', PasswordResetCompleteView.as_view(), name='user_creation_complete'),
 
     # Route everything that doesn't match the other paths to frontend
+    re_path(r'^_next/(?P<path>.*)$', serve, {'document_root': 'frontend/out/_next'}),
     re_path(r'^', TemplateView.as_view(template_name='index.html')),
 ]

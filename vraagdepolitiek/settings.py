@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'backend',
-    'frontend',
     'graphene_django',
     'corsheaders',
 ]
@@ -55,7 +54,10 @@ ROOT_URLCONF = 'vraagdepolitiek.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['backend/templates'],  # Search in backend first to overwrite admin
+        'DIRS': [
+            'backend/templates',  # Search in backend first to overwrite admin
+            'frontend/out',  # Frontend static build export folder with index.html
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,6 +113,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "backend", "static"),
+    os.path.join(BASE_DIR, "frontend", "out", "static"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")

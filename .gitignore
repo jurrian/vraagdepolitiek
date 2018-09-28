@@ -1,6 +1,8 @@
 local_settings.py
 .idea
 /static
-frontend/node_modules
+node_modules
+/frontend/out
+/frontend/.next
 */__pycache__
 **/*.pyc
