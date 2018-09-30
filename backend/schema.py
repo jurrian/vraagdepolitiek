@@ -71,7 +71,7 @@ class Query(graphene.ObjectType):
     users = graphene.List(UserType)
     current_user = graphene.Field(UserType)
 
-    questions = graphene.List(QuestionType)
+    questions = graphene.List(QuestionType, id=graphene.ID())
     site_questions = graphene.List(QuestionType, site=graphene.ID())
     answers = graphene.List(AnswerType)
     representatives = graphene.List(RepresentativeType)
@@ -88,7 +88,9 @@ class Query(graphene.ObjectType):
 
         return User.objects.get(pk=info.context.user.id)
 
-    def resolve_questions(self, info):
+    def resolve_questions(self, info, id=None):
+        if id:
+            return Question.objects.filter(pk=id)
         return Question.objects.all()
 
     def resolve_answers(self, info):
