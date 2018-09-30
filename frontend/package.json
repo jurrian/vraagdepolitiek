@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.1.16",
     "graphql": "^14.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^7.0.0",
+    "next-eslint": "^0.0.4",
+    "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-apollo": "^2.2.1",
     "react-dom": "^16.5.2",
-    "react-scripts": "1.1.5",
+    "react-scripts": "2.0.0-next.2150693d",
     "serve": "^10.0.2"
   },
   "scripts": {
@@ -18,5 +21,8 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "export": "next export"
+  },
+  "devDependencies": {
+    "eslint-config-xo": "^0.25.0"
   }
 }

@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 1000px;
+  background: #fbfbfb;
+}
+
+.question {
+  h1 {
+    display: block;
+
+  }
+
+  article, .user {
+    float: left;
+    width: 50%;
+  }
+
+  .user {
+    text-align: right;
+
+    span {
+      display: block;
+    }
+  }
+
+  .theme {
+    display: inline-block;
+    background: #ccc;
+    padding: 3px 8px;
+    margin: 0 0 0 4px;
+  }
+}
