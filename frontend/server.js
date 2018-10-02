@@ -10,7 +10,7 @@ app.prepare()
 		const server = express();
 
 		server.get('/q/', (req, res) => {
-			const actualPage = '/questions';
+			const actualPage = '/question';
 			app.render(req, res, actualPage);
 		});
 

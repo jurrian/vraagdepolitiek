@@ -1,25 +1,23 @@
 import React, {Component} from 'react';
-import Link from "next/link";
+import Link from 'next/link';
 
 class Answer extends Component {
 	render() {
 		return (
-			<div className="question">
-				<article>
+			<article className="answer">
+				<div className="content">
 					<p>{this.props.summary}</p>
 					<p>{this.props.fullText}</p>
-				</article>
+				</div>
 				<div className="user">
+					<img src={this.props.user.picture} width="100" height="100" />
 					{this.props.user ? (
-						<p>
-							<span>{this.props.user.firstName} {this.props.user.lastName}</span>
-							<img src={this.props.user.picture} width="100" height="100" />
-						</p>
+						<p>{this.props.user.firstName} {this.props.user.lastName}</p>
 					) : (
-						<span>Gebruiker verwijderd</span>
+						<p>Gebruiker verwijderd</p>
 					)}
 				</div>
-			</div>
+			</article>
 		);
 	}
 }

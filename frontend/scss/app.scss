@@ -1,36 +1,135 @@
 body {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+
+p {
+  margin: 3px 0 8px 0;
+}
+
+nav {
+  padding: 20px 30px;
+
+  a {
+    display: inline-block;
+    background: #cbc5da;
+    padding: 3px 8px;
+    margin: 0 4px 0 0;
+    text-decoration: none;
+    color: #393f68;
+    font-size: 12px;
+  }
 }
 
 .wrapper {
   margin: 0 auto;
-  width: 1000px;
-  background: #fbfbfb;
+  width: 800px;
+}
+
+ .main-content {
+  padding: 30px 0;
 }
 
 .question {
   h1 {
     display: block;
-
+    font-size: 26px;
+    color: #4a487b;
   }
 
-  article, .user {
+  .content {
     float: left;
-    width: 50%;
+    width: 70%;
   }
 
   .user {
-    text-align: right;
+    float: left;
+    width: 20%;
+    margin-left: 10%;
+    text-align: center;
 
-    span {
-      display: block;
+    img.empty {
+      background: #ccc;
     }
   }
 
-  .theme {
-    display: inline-block;
-    background: #ccc;
-    padding: 3px 8px;
-    margin: 0 0 0 4px;
+  section {
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    overflow: hidden;
   }
+
+  .theme {
+    margin-bottom: 20px;
+  }
+
+  .answer {
+    background: #f5f4f8;
+    padding: 20px 30px;
+    overflow: hidden;
+  }
+}
+
+.question__list {
+  position: relative;
+  width: 600px;
+  background: #ccc;
+  padding: 8px;
+  margin: 10px 0 30px;
+
+  .theme {
+    background: #fff;
+    margin-bottom: 20px;
+  }
+
+  .summary {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .user {
+    span, a {
+      font-size: 12px;
+      text-decoration: none;
+      font-style: italic;
+      color: #444;
+    }
+  }
+}
+
+.theme {
+  display: inline-block;
+  background: #ccc;
+  padding: 3px 8px;
+  margin: 0 4px 0 0;
+  text-decoration: none;
+  color: #666;
+  font-size: 12px;
+}
+
+.upvote {
+  position: absolute;
+  display: flex;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: #999;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  line-height: 13px;
+  font-weight: 800;
+}
+
+header {
+  background: #f5f4f8;
+  height: 100px;
 }

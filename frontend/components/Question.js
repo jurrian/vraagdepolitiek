@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import Link from "next/link";
 import Answer from './Answer';
+import Moment from 'react-moment';
 
 class Question extends Component {
 	render() {
-		const themes = this.props.themes.map((theme) => {
+		const themes = this.props.themes && this.props.themes.map((theme) => {
 			return (
-				<a className="theme" href="">{theme.name}</a>
+				<a className="theme" key={theme.id} href="">{theme.name}</a>
 			)
 		})
-		const answers = this.props.answers.map((answer) => {
+		const answers = this.props.answers && this.props.answers.map((answer) => {
 			return (
 				<Answer key={answer.id} id={answer.id} summary={answer.summary} fullText={answer.fullText}
 						user={answer.user} />
@@ -18,21 +19,28 @@ class Question extends Component {
 		return (
 			<div className="question">
 				<article>
-					<Link as={`/q/${this.props.id}/`} href={`/question/detail?id=${this.props.id}`}>
-						<a><h1>{this.props.summary}</h1></a>
-					</Link>
-					{themes}
-					<p>{this.props.fullText}</p>
-					<hr />
+					<section>
+						<div className="content">
+							<h1>{this.props.summary}</h1>
+							{themes}
+							<p>Gesteld op{` `}
+								<Moment format="DD-MM-YYYY HH:MM">
+									{this.props.publicationDatetime}
+								</Moment>
+							</p>
+							<p>{this.props.fullText}</p>
+						</div>
+						<div className="user">
+							<img className="empty" src="" width="120" height="120" />
+							{this.props.user ? (
+								<p>{this.props.user.firstName} {this.props.user.lastName}</p>
+							) : (
+								<p>Gebruiker verwijderd</p>
+							)}
+						</div>
+					</section>
 					{answers}
 				</article>
-				<div className="user">
-					{this.props.user ? (
-						<span>{this.props.user.firstName} {this.props.user.lastName}</span>
-					) : (
-						<span>Gebruiker verwijderd</span>
-					)}
-				</div>
 			</div>
 		);
 	}

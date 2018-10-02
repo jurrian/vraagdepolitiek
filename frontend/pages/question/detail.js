@@ -3,10 +3,11 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import React, {Component} from 'react';
 import Question from '../../components/Question';
+import Answer from "../../components/Answer";
 
 class QuestionDetail extends Component {
-	static async getInitialProps({ query: { id } }) {
-		return { id }
+	static async getInitialProps({query: {id}}) {
+		return {id};
 	}
 
 	render() {
@@ -50,7 +51,7 @@ class QuestionDetail extends Component {
 
 		return (
 			<App>
-				<strong>Vraag</strong>
+				<h2>Vraag</h2>
 				<Query query={QUESTION_QUERY}>
 					{({loading, error, data}) => {
 						if (loading) {
@@ -63,8 +64,12 @@ class QuestionDetail extends Component {
 						const question = data.questions[0];
 
 						return (
-							<Question key={question.id} id={question.id} summary={question.summary} fullText={question.fullText}
-													  user={question.user} themes={question.themes} answers={question.answers} />
+							<Question key={question.id} id={question.id} summary={question.summary}
+									  fullText={question.fullText}
+									  user={question.user} themes={question.themes} answers={question.answers}>
+								<Answer/>
+							</Question>
+
 						);
 					}}
 				</Query>
