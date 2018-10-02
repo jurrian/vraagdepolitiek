@@ -20,6 +20,16 @@ app.prepare()
 			app.render(req, res, actualPage, queryParams);
 		});
 
+		server.get('/q/create/', (req, res) => {
+			const actualPage = '/question/create';
+			app.render(req, res, actualPage);
+		});
+
+		server.post('/q/create/', (req, res) => {
+			const actualPage = '/question/create';
+			app.render(req, res, actualPage);
+		});
+
 		server.get('*', (req, res) => {
 			return handle(req, res);
 		});

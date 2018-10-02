@@ -1,3 +1,4 @@
+frontend
 Dockerfile*
 docker-compose*
 **/local_settings.py
