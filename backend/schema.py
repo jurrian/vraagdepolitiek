@@ -78,6 +78,7 @@ class Query(graphene.ObjectType):
     organizations = graphene.List(OrganizationType)
     parties = graphene.List(PartyType)
     sites = graphene.List(SiteType, id=graphene.ID())
+    themes = graphene.List(ThemeType)
 
     def resolve_users(self, info):
         return User.objects.all()
@@ -111,8 +112,10 @@ class Query(graphene.ObjectType):
     def resolve_site_questions(self, info, site=None):
         if not site:
             site = info.context.site
-
         return Question.objects.filter(organization__site=site)
+
+    def resolve_themes(self, info):
+        return Theme.objects.all()
 
     class Meta:
         description = 'GraphQL query endpoint for vraagdepolitiek.nl and vraagdegemeente.nl.'
