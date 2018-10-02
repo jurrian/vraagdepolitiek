@@ -14,10 +14,20 @@ app.prepare()
 			app.render(req, res, actualPage);
 		});
 
-		server.get('/q/:id/', (req, res) => {
+		server.get('/q/:id(\\d+)/', (req, res) => {
 			const actualPage = '/question/detail';
 			const queryParams = {id: req.params.id};
 			app.render(req, res, actualPage, queryParams);
+		});
+
+		server.get('/q/create/', (req, res) => {
+			const actualPage = '/question/create';
+			app.render(req, res, actualPage);
+		});
+
+		server.post('/q/create/', (req, res) => {
+			const actualPage = '/question/create';
+			app.render(req, res, actualPage);
 		});
 
 		server.get('*', (req, res) => {
