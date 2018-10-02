@@ -14,7 +14,7 @@ app.prepare()
 			app.render(req, res, actualPage);
 		});
 
-		server.get('/q/:id/', (req, res) => {
+		server.get('/q/:id([0-9]+)/', (req, res) => {
 			const actualPage = '/question/detail';
 			const queryParams = {id: req.params.id};
 			app.render(req, res, actualPage, queryParams);

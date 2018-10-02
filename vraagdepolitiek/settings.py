@@ -152,16 +152,16 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:3000',
-    '10.0.1.123:3000',
-    '10.0.1.123:8000',
+    '127.0.0.1:8000',
+    'localhost:3000',
     'localhost:8000',
 )
 
 # Todo!
 CSRF_TRUSTED_ORIGINS = (
     '127.0.0.1:3000',
-    '10.0.1.123:3000',
-    '10.0.1.123:8000',
+    '127.0.0.1:8000',
+    'localhost:3000',
     'localhost:8000',
 )
 

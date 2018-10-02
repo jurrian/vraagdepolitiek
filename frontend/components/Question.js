@@ -18,7 +18,7 @@ class Question extends Component {
 		return (
 			<div className="question">
 				<article>
-					<Link as={`/q/${this.props.id}/`} href={`/questions?id=${this.props.key}`}>
+					<Link as={`/q/${this.props.id}/`} href={`/question/detail?id=${this.props.id}`}>
 						<a><h1>{this.props.summary}</h1></a>
 					</Link>
 					{themes}
